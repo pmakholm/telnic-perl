@@ -221,9 +221,7 @@ L<http://search.cpan.org/dist/WebService-Telnic>
 
 Copyright 2009 Peter Makholm, all rights reserved.
 
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
-
+This software is released under the MIT license cited in L<WebService::Telnic>.
 
 =cut
 

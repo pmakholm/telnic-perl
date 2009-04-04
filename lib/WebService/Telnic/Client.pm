@@ -29,43 +29,55 @@ sub new {
 
 =head1 NAME
 
-WebService::Telnic::Client - The great new WebService::Telnic::Client!
+WebService::Telnic::Client - Interface to the Telnic Client API
 
 =head1 VERSION
 
-Version 0.01
+Version 0.1
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
     use WebService::Telnic::Client;
 
-    my $foo = WebService::Telnic::Client->new();
-    ...
+    my $client = WebService::Telnic::Client->new(
+        endpoint => 'https://telprovider.com/client',
+        user     => 'exampletel',
+        pass     => 'XXXXXXXX,
+    )
 
-=head1 EXPORT
+    my $records  = $client->listRecords('example.tel');
+    my $profiles = $client->listProfilesExt('example.net');
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+At the moment only handling of resource records and profiles is implemented.
+All methods takes the domain name as first argument.
 
-=head1 FUNCTIONS
+=head1 Record
 
-=head2 function1
+=head2 listRecords
 
-=cut
+=head2 storeRecord
 
-sub function1 {
-}
+=head2 updateRecords
 
-=head2 function2
+=head2 deleteRecord
 
-=cut
+=head Profile
 
-sub function2 {
-}
+=head2 createProfile
+
+=head2 deleteProfile
+
+=head2 updateProfile
+
+=head2 listProfiles
+
+=head2 listProfilesExt
+
+=head2 getProfile
+
+=head2 switchToProfile
+
+=head2 getActiveProfile
 
 =head1 AUTHOR
 
@@ -82,14 +94,13 @@ automatically be notified of progress on your bug as I make changes.
 
 =head1 SUPPORT
 
-You can find documentation for this module with the perldoc command.
-
-    perldoc WebService::Telnic
-
-
-You can also look for information at:
+You can look for information at:
 
 =over 4
+
+=item * github: Public version control system
+
+L<http://github.com/pmakholm/telnic-perl/tree>
 
 =item * RT: CPAN's request tracker
 
@@ -117,9 +128,7 @@ L<http://search.cpan.org/dist/WebService-Telnic>
 
 Copyright 2009 Peter Makholm, all rights reserved.
 
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
-
+This software is released under the MIT license cited in L<WebService::Telnic>.
 
 =cut
 

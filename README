@@ -30,6 +30,9 @@ perldoc command.
 
 You can also look for information at:
 
+    github, Public version control system
+        http://github.com/pmakholm/telnic-perl/tree
+
     RT, CPAN's request tracker
         http://rt.cpan.org/NoAuth/Bugs.html?Dist=WebService-Telnic
 
