@@ -6,7 +6,7 @@ use strict;
 use XML::Simple;
 use Net::DNS::RR;
 
-use base qw(WebService::Telnic::Base WebService::Telnic::Client::Record WebService::Telnic::Client::Profile);
+use base qw(WebService::Telnic::Base WebService::Telnic::Client::Record WebService::Telnic::Client::Profile WebService::Telnic::Client::SearchData);
 
 our $VERSION = '0.1';
 
@@ -40,13 +40,13 @@ Version 0.1
     use WebService::Telnic::Client;
 
     my $client = WebService::Telnic::Client->new(
-        endpoint => 'https://telprovider.com/client',
+        domain   => 'example.tel',
         user     => 'exampletel',
         pass     => 'XXXXXXXX,
     )
 
-    my $records  = $client->listRecords('example.tel');
-    my $profiles = $client->listProfilesExt('example.net');
+    my $records  = $client->listRecords();
+    my $profiles = $client->listProfilesExt();
 
 At the moment only handling of resource records and profiles is implemented.
 All methods takes the domain name as first argument.
@@ -61,7 +61,7 @@ All methods takes the domain name as first argument.
 
 =head2 deleteRecord
 
-=head Profile
+=head1 Profile
 
 =head2 createProfile
 
@@ -78,6 +78,12 @@ All methods takes the domain name as first argument.
 =head2 switchToProfile
 
 =head2 getActiveProfile
+
+=head1 SearchData
+
+=head2 setSearchData
+
+=head2 getSearchData
 
 =head1 AUTHOR
 
