@@ -33,8 +33,8 @@ my $qotd;
 for my $record (@{ $client->listRecords() }) {
    next unless $record->isa('Net::DNS::RR::TXT');
    
-   my ($type) = $record->char_str_list();
-   next unless $type eq "Quote of the day";
+   my @texts = $record->char_str_list();
+   next unless $texts[2] eq "quoteOfTheDay";
 
    $qotd = $record;
    last;
@@ -49,7 +49,8 @@ unless (defined $qotd) {
 
 # Net::DNS::RR::TXT doesn't have a nice accessor?
 $qotd->{'char_str_list'} = [ 
-    'Quote of the day',
+    ".tkw", "1",
+    'quoteOfTheDay',
     shift @quotes,
 ];
 
