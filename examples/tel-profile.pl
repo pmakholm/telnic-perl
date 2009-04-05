@@ -16,8 +16,8 @@ GetOptions(
     'set=s'      => \$set,
 );
 
-die 'endpoint, domain, user, and pass is all needed' unless
-    $endpoint && $domain && $user && $pass;
+die 'domain, user, and pass is all needed' unless
+    $domain && $user && $pass;
 
 die 'One and only one of --list or --set' if ($list && $set) || (!$list && !$set);
 

@@ -19,8 +19,8 @@ GetOptions(
     'pass=s'     => \$pass,
 );
 
-die 'endpoint, domain, user, and pass is all needed' unless
-    $endpoint && $domain && $user && $pass;
+die 'domain, user, and pass is all needed' unless
+    $domain && $user && $pass;
 
 my $client = WebService::Telnic::Client->new(
     endpoint => $endpoint,

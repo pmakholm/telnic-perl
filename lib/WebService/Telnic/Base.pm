@@ -3,6 +3,7 @@ package WebService::Telnic::Base;
 use warnings;
 use strict;
 
+use Net::DNS qw(rrsort);
 use LWP::UserAgent;
 use HTTP::Request;
 
@@ -11,6 +12,8 @@ our $VERSION = '0.1';
 sub new {
     my $class = shift;
     my %args  = @_;
+
+    $args{endpoint} = autoProvisioning($args{domain}) unless defined $args{endpoint};
 
     my $uri = URI->new($args{endpoint});
 
@@ -32,6 +35,26 @@ sub new {
         namespaces => {}
     }, $class;
 }
+
+sub autoProvisioning {
+    my $domain = shift;
+
+    my $res   = Net::DNS::Resolver->new;
+    my $query = $res->query("_soap._nspapi." . $domain, "NAPTR");
+  
+    return unless $query;
+
+    for my $rr (rrsort("NAPTR","priority",$query->answer)) {
+        next unless $rr->service =~ /e2u\+web:https/i;
+        
+        my @regexp = split substr($rr->regexp,0,1), $rr->regexp;
+	next unless $regexp[1] eq '^.*$';
+	return $regexp[2];
+    }
+
+    return;	
+}
+
 
 sub soap {
     my $self   = shift;
