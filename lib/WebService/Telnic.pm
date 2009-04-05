@@ -36,6 +36,10 @@ You can also look for information at:
 
 =over 4
 
+=item * github: Public version control system
+
+L<http://github.com/pmakholm/telnic-perl/tree>
+
 =item * RT: CPAN's request tracker
 
 L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=WebService-Telnic>

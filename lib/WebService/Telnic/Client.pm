@@ -89,6 +89,10 @@ All methods takes the domain name as first argument.
 
 Peter Makholm, C<< <peter at makholm.net> >>
 
+=head1 SEE ALSO
+
+L<http://dev.telnic.org/api/client-soap/index.html>
+
 =head1 BUGS
 
 Please report any bugs or feature requests to C<bug-webservice-telnic-client at rt.cpan.org>, or through
