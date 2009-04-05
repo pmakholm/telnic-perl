@@ -1,5 +1,62 @@
 package WebService::Telnic::Client::RR;
 
+=head1 NAME
+
+WebService::Telnic::Client::RR - Enhanced Net::DNS::RR records
+
+=head1 SYNOPSIS
+
+    my $rr = Net::DNS::RR->new( ... );
+    WebService::Telnic::Client::RR->upgrade($rr);
+
+    $rr->id(12345);
+
+=head1 DESCRIPTION
+
+WebService::Telnic::Client::RR enhances L<Net::DNS::RR> records with
+information available within the Tel Hosting system. At the moment LOC,
+NAPTR, and TXT records are supported.
+  
+=over 4
+
+=item WebService::Telnic::Client::RR->upgrade($rr)
+
+Upgrades a Net::DNS::RR object to this class
+
+=item $rr->downgrade()
+
+Downgrades an object to a Net::DNS::RR object
+
+=item $rr->id()
+
+Getter/setter for the id attribute of records. For editing records this
+should be set to an existing id in the Tel Hosting system
+
+=item $rr->owner()
+
+Getter/setter for the owner attribute
+
+=item $rr->profiles()
+
+Getter/setter for the profile attribute
+
+=item $rr->groups()
+
+Getter/setter for the groups attribute
+
+=head1 AUTHOR
+
+Peter Makholm, C<< <peter at makholm.net> >>
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2009 Peter Makholm, all rights reserved.
+
+This software is released under the MIT license cited in L<WebService::Telnic>.
+
+=cut
+
+
 use base (Net::DNS::RR);
 our %TypeMap;
 
@@ -111,6 +168,17 @@ sub from_xmlsimple {
 
     return $self;
 }
+
+for my $field (qw( id owner profiles groups )) {
+    no strict 'refs';
+
+    *{$field} = sub {
+        my $self = shift;
+        $self->{$field} = shift if @_;
+        return $self->{$field};
+    };
+}
+  
 
 package WebService::Telnic::Client::RR::NAPTR;
 
