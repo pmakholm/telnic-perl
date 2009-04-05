@@ -2,6 +2,8 @@ package WebService::Telnic::Client::SearchData;
 
 use XML::Simple;
 
+our $VERSION = '0.2';
+
 our %keywordsShort = (
     nameLabel             => 'nl',
     salutation            => 's',

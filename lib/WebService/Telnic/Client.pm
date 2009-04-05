@@ -8,7 +8,7 @@ use Net::DNS::RR;
 
 use base qw(WebService::Telnic::Base WebService::Telnic::Client::Record WebService::Telnic::Client::Profile WebService::Telnic::Client::SearchData);
 
-our $VERSION = '0.1';
+our $VERSION = '0.2';
 
 sub new {
     my $class = shift;

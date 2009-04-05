@@ -2,7 +2,7 @@ package WebService::Telnic::Client::Record;
 
 use warnings;
 use strict;
-our $VERSION = '0.1';
+our $VERSION = '0.2';
 
 use Scalar::Util qw(blessed);
 use XML::Simple;

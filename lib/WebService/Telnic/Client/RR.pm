@@ -60,7 +60,7 @@ This software is released under the MIT license cited in L<WebService::Telnic>.
 use base (Net::DNS::RR);
 our %TypeMap;
 
-our $VERSION = '0.1';
+our $VERSION = '0.2';
 
 sub new {
     my $class = shift;

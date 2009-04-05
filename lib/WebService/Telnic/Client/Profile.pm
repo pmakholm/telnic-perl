@@ -3,7 +3,7 @@ package WebService::Telnic::Client::Profile;
 use strict;
 use warnings;
 
-our $VERSION ='0.1';
+our $VERSION ='0.2';
 
 use Carp;
 use XML::Simple;

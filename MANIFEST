@@ -7,10 +7,9 @@ lib/WebService/Telnic/Client.pm
 lib/WebService/Telnic/Client/Profile.pm
 lib/WebService/Telnic/Client/Record.pm
 lib/WebService/Telnic/Client/RR.pm
+lib/WebService/Telnic/Client/SearchData.pm
+LICENSE
 Makefile.PL
 MANIFEST			This list of files
 README
 t/00-load.t
-t/boilerplate.t
-t/pod-coverage.t
-t/pod.t

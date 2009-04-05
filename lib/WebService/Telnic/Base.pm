@@ -7,7 +7,7 @@ use Net::DNS qw(rrsort);
 use LWP::UserAgent;
 use HTTP::Request;
 
-our $VERSION = '0.1';
+our $VERSION = '0.2';
 
 sub new {
     my $class = shift;

@@ -1,5 +1,10 @@
 Revision history for WebService-Telnic
 
-0.01    Date/time
+0.2     2009-04-05
+        Added simple auto provisioning
+        Added domain as an attribute of the client object
+        Added SearchData functions
+
+0.01    2009-04-04
         First version, released on an unsuspecting world.
 
