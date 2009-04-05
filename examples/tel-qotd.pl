@@ -57,8 +57,23 @@ $qotd->{'char_str_list'} = [
 $client->storeRecord($qotd);
 
 __DATA__
-alpha
-beta
-gamma
-delta
-
+"Frankly, my dear, I don't give a damn." -- Rhett Butler
+"I'm going to make him an offer he can't refuse." -- Vito Corleone
+"Toto, I've got a feeling we're not in Kansas anymore." -- Dorothy
+"Here's looking at you, kid." -- Rick Blaine
+"Go ahead, make my day." -- Harry Callahan
+"All right, Mr. DeMille, I'm ready for my close-up." -- Norma Desmond
+"May the Force be with you." -- Han Solo
+"Fasten your seatbelts. It's going to be a bumpy night." -- Margo Channing
+"You talkin' to me?" -- Travis Bickle
+"What we've got here is failure to communicate." -- Captain
+"I love the smell of napalm in the morning!" -- Lt. Col. Bill Kilgore
+"Love means never having to say you're sorry." -- Jennifer Cavilleri Barrett
+"The stuff that dreams are made of." -- Sam Spade
+"E.T. phone home. -- E.T.
+"They call me Mister Tibbs!" -- Virgil Tibbs
+"Rosebud." -- Charles Foster Kane
+"Made it, Ma! Top of the world!" -- Arthur "Cody" Jarrett
+"I'm as mad as hell, and I'm not going to take this anymore!" -- Howard Beale
+"Louis, I think this is the beginning of a beautiful friendship." -- Rick Blaine
+"A census taker once tried to test me. I ate his liver with some fava beans and a nice Chianti." -- Hannibal Lecter
