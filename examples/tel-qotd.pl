@@ -24,12 +24,13 @@ die 'endpoint, domain, user, and pass is all needed' unless
 
 my $client = WebService::Telnic::Client->new(
     endpoint => $endpoint,
+    domain   => $domain,
     user     => $user,
     pass     => $pass,
 );
 
 my $qotd;
-for my $record (@{ $client->listRecords($domain) }) {
+for my $record (@{ $client->listRecords() }) {
    next unless $record->isa('Net::DNS::RR::TXT');
    
    my ($type) = $record->char_str_list();
@@ -52,7 +53,7 @@ $qotd->{'char_str_list'} = [
     shift @quotes,
 ];
 
-$client->storeRecord($domain, $qotd);
+$client->storeRecord($qotd);
 
 __DATA__
 alpha

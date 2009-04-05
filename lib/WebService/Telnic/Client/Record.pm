@@ -10,7 +10,7 @@ use WebService::Telnic::Client::RR;
 
 sub listRecords {
     my $self   = shift;
-    my $domain = shift;
+    my $domain = $self->{domain};
 
     my $method = join "#", $self->{namespaces}->{record}, "listRecordsRequest";
     my $body   = qq(<record:listRecordsRequest domainName="$domain" />);
@@ -38,8 +38,8 @@ sub listRecords {
 
 sub storeRecord {
     my $self    = shift;
-    my $domain  = shift;
     my @records = @_;
+    my $domain  = $self->{domain};
 
     my $method  = join "#", $self->{namespaces}->{record}, "storeRecordRequest";
     my $body    = qq(<record:storeRecordRequest domainName="$domain">);
@@ -69,8 +69,8 @@ sub storeRecord {
 
 sub deleteRecord {
     my $self   = shift;
-    my $domain = shift;
     my $id     = shift;
+    my $domain = $self->{domain};
 
     my $method = join "#", $self->{namespaces}->{record}, "listRecordsRequest";
     my $body   = qq(<record:deleteRecordRequest domainName="$domain"><record:id>$id</record:id></record:deleteRecordRequest>);
@@ -82,7 +82,7 @@ sub deleteRecord {
 
 sub updateRecord {
     my $self    = shift;
-    my $domain  = shift;
+    my $domain  = $self->{domain};
     my @updates = @_;
 
     my $method  = join "#", $self->{namespaces}->{record}, "updateRecordRequest";

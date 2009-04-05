@@ -10,8 +10,8 @@ use XML::Simple;
 
 sub createProfile {
     my $self   = shift;
-    my $domain = shift;
     my %args   = @_;
+    my $domain = $self->{domain};
 
     croak "No name given for profile" unless defined $args{name};
 
@@ -41,8 +41,8 @@ sub createProfile {
 
 sub deleteProfile {
     my $self   = shift;
-    my $domain = shift;
     my %args   = @_;
+    my $domain = $self->{domain};
 
     croak "No id given for profile" unless defined $args{id};
 
@@ -56,8 +56,8 @@ sub deleteProfile {
 
 sub updateProfile {
     my $self   = shift;
-    my $domain = shift;
     my %args   = @_;
+    my $domain = $self->{domain};
 
     croak "No id given for profile" unless defined $args{id};
 
@@ -79,7 +79,7 @@ sub updateProfile {
 
 sub listProfiles {
     my $self   = shift;
-    my $domain = shift;
+    my $domain = $self->{domain};
 
     my $method = join "#", $self->{namespaces}->{profile}, "listProfilesRequest";
     my $body   = qq(<profile:listProfilesRequest domainName="$domain" />);
@@ -99,7 +99,7 @@ sub listProfiles {
 
 sub listProfilesExt {
     my $self   = shift;
-    my $domain = shift;
+    my $domain = $self->{domain};
 
     my $method = join "#", $self->{namespaces}->{profile}, "listProfilesRequestExt";
     my $body   = qq(<profile:listProfilesExtRequest domainName="$domain" />);
@@ -118,8 +118,8 @@ sub listProfilesExt {
 
 sub getProfile {
     my $self   = shift;
-    my $domain = shift;
     my %args   = @_;
+    my $domain = $self->{domain};
 
     croak "No id given for profile" unless defined $args{id};
 
@@ -139,8 +139,8 @@ sub getProfile {
 
 sub switchToProfile {
     my $self   = shift;
-    my $domain = shift;
     my %args   = @_;
+    my $domain = $self->{domain};
 
     croak "No id given for profile" unless defined $args{id};
 
@@ -155,8 +155,8 @@ sub switchToProfile {
 
 sub getActiveProfile {
     my $self   = shift;
-    my $domain = shift;
     my %args   = @_;
+    my $domain = $self->{domain};
 
     my $method = join "#", $self->{namespaces}->{profile}, "getActiveProfileRequest";
     my $body   = qq(<profile:getActiveProfileRequest domainName="$domain" />);

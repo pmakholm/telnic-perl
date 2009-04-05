@@ -25,6 +25,7 @@ sub new {
 
 
     return bless {
+        domain     => $args{domain},
 	args       => \%args,
         ua         => $ua,
 	req        => $req,
