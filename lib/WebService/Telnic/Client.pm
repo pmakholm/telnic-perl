@@ -6,7 +6,7 @@ use strict;
 use XML::Simple;
 use Net::DNS::RR;
 
-use base qw(WebService::Telnic::Base WebService::Telnic::Client::Record WebService::Telnic::Client::Profile WebService::Telnic::Client::SearchData);
+use base qw(WebService::Telnic::Base WebService::Telnic::Client::Record WebService::Telnic::Client::Profile WebService::Telnic::Client::SearchData WebService::Telnic::Client::Domain);
 
 our $VERSION = '0.2';
 
@@ -84,6 +84,32 @@ All methods takes the domain name as first argument.
 =head2 setSearchData
 
 =head2 getSearchData
+
+=head1 Domain
+
+Autoprovisioning only works for existing domains, so either you have to
+use an explicit endpoint for some ef these functions to work or you'll have
+to change the domain attribute of the lient object.
+
+(Maybe having the domain as an real attribute wasn't the best idea?)
+
+=head2 createZone
+
+=head2 updateZone
+
+=head2 deleteZone
+
+=head2 getZone
+
+=head2 listZones
+
+=head2 createDomain
+
+=head2 deleteDomain
+
+=head2 getDomain
+
+=head2 listDomains
 
 =head1 AUTHOR
 
