@@ -1,38 +1,8 @@
 package WebService::Telnic::Client::Domain;
 
-use XML::Simple;
+use WebService::Telnic::Util qw(XMLin);
 
 our $VERSION = '0.2';
-
-sub removeNS {
-    my $data = shift;
-
-    return $data
-        unless ref $data;
-
-    return [ map { removeNS($_) } @{ $data } ]
-        if ref $data eq 'ARRAY';
-
-    return do { my $ref = removeNS($$data); \$ref }
-        if ref $data eq 'SCALAR';
-
-    return $data
-        if ref $data ne 'HASH';
-
-    my $new = {};
-    for my $key (keys %{ $data }) {
-        next if $key eq 'xmlns';
-
-        my $value = removeNS( $data->{$key} );
-
-        $key =~ /^(?:\{([^}]+)\})?(.*)/;
-	next if $1 eq 'http://www.w3.org/2000/xmlns/';
-
-	$new->{$2} = $value;
-    }
- 
-    return $new;
-}
 
 sub createZone {
     my $self = shift;
@@ -98,11 +68,10 @@ sub getZone {
     my $res =  $self->soap($method, $body);
     return unless $res->is_success;
 
-    my $xml  = XMLin( $res->content, NSExpand => 1, KeyAttr => [], ForceArray => [qw(keyword)], SuppressEmpty =>'' );
-    my $data = $xml->{'{http://www.w3.org/2003/05/soap-envelope}Body'}
-                   ->{'{http://xmlns.telnic.org/ws/nsp/client/domain/types-1.0}getZoneResponse'};
+    my $xml  = XMLin( $res->content, RemoveNS => 1, ForceArray => [qw(keyword)] );
 
-    return removeNS($data);
+    return $xml->{Body}
+               ->{getZoneResponse};
 }
 
 sub listZones {
@@ -115,11 +84,9 @@ sub listZones {
     my $res =  $self->soap($method, $body);
     return unless $res->is_success;
 
-    my $xml  = XMLin( $res->content, NSExpand => 1, KeyAttr => [], ForceArray => [qw(keyword)], SuppressEmpty =>'' );
-    my $data = $xml->{'{http://www.w3.org/2003/05/soap-envelope}Body'}
-                   ->{'{http://xmlns.telnic.org/ws/nsp/client/domain/types-1.0}listZonesResponse'};
-
-    return removeNS($data);
+    my $xml  = XMLin( $res->content, RemoveNS => 1, ForceArray => [qw(keyword)] );
+    return $xml->{Body}
+               ->{listZonesResponse};
 }
 
 sub createDomain {
@@ -156,11 +123,9 @@ sub getDomain {
     my $res =  $self->soap($method, $body);
     return unless $res->is_success;
 
-    my $xml  = XMLin( $res->content, NSExpand => 1, KeyAttr => [], ForceArray => [qw(keyword)], SuppressEmpty =>'' );
-    my $data = $xml->{'{http://www.w3.org/2003/05/soap-envelope}Body'}
-                   ->{'{http://xmlns.telnic.org/ws/nsp/client/domain/types-1.0}getDomainResponse'};
-
-    return removeNS($data);
+    my $xml  = XMLin( $res->content, RemoveNS => 1, ForceArray => [qw(keyword)] );
+    return $xml->{Body}
+               ->{getDomainResponse}
 }
 
 sub listDomains {
@@ -173,28 +138,9 @@ sub listDomains {
     my $res =  $self->soap($method, $body);
     return unless $res->is_success;
 
-    my $xml  = XMLin( $res->content, NSExpand => 1, KeyAttr => [], ForceArray => [qw(keyword)], SuppressEmpty =>'' );
-    my $data = $xml->{'{http://www.w3.org/2003/05/soap-envelope}Body'}
-                   ->{'{http://xmlns.telnic.org/ws/nsp/client/domain/types-1.0}listDomainsResponse'};
-
-    return removeNS($data);
+    my $xml  = XMLin( $res->content, RemoveNS => 1, ForceArray => [qw(keyword)] );
+    return $xml->{Body}
+               ->{listDomainsResponse};
 }
 
-sub getSearchData {
-    my $self = shift;
-    my %data = @_;
-
-    my $method = join "#", $self->{namespaces}->{domain}, "getSearchDataRequest";
-    my $body   = qq(<domain:getSearchDataRequest domainName="$self->{domain}" />);
-
-    my $res =  $self->soap($method, $body);
-    return unless $res->is_success;
-
-    my $xml  = XMLin( $res->content, NSExpand => 1, KeyAttr => [], ForceArray => [qw(keyword)], SuppressEmpty =>'' );
-    my $data = $xml->{'{http://www.w3.org/2003/05/soap-envelope}Body'}
-                   ->{'{http://xmlns.telnic.org/ws/nsp/client/domain/types-1.0}getSearchDataResponse'}
-                   ->{'{http://xmlns.telnic.org/ws/nsp/client/domain/types-1.0}searchData'};
-
-    return xml2data($data);
-}
 1;

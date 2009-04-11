@@ -1,6 +1,6 @@
 package WebService::Telnic::Client::SearchData;
 
-use XML::Simple;
+use WebService::Telnic::Util qw(XMLin);
 
 our $VERSION = '0.2';
 
@@ -82,10 +82,10 @@ sub getSearchData {
     my $res =  $self->soap($method, $body);
     return unless $res->is_success;
 
-    my $xml  = XMLin( $res->content, NSExpand => 1, KeyAttr => [], ForceArray => [qw(keyword)], SuppressEmpty =>'' );
-    my $data = $xml->{'{http://www.w3.org/2003/05/soap-envelope}Body'}
-                   ->{'{http://xmlns.telnic.org/ws/nsp/client/searchdata/types-1.0}getSearchDataResponse'}
-                   ->{'{http://xmlns.telnic.org/ws/nsp/client/searchdata/types-1.0}searchData'};
+    my $xml  = XMLin( $res->content, RemoveNS => 1, ForceArray => [qw(keyword)], );
+    my $data = $xml->{'Body'}
+                   ->{'getSearchDataResponse'}
+                   ->{'searchData'};
 
     return xml2data($data);
 }
@@ -94,15 +94,14 @@ sub xml2data {
     my $xml  = shift;
     my @data; 
 
-    my $ns = 'http://xmlns.telnic.org/ws/nsp/client/searchdata/types-1.0';
-    my @keywords = ref $xml->{"{$ns}keyword"} eq 'ARRAY' ? @{ $xml->{"{$ns}keyword"} } : $xml->{"{$ns}keyword"};
+    my @keywords = ref $xml->{"keyword"} eq 'ARRAY' ? @{ $xml->{"keyword"} } : $xml->{"keyword"};
     for my $keyword (@keywords) {
         my $key   = $keyword->{"field"};
         my $value = $keyword->{"value"};
 
         $key = $keywordsLong{$key} if defined $keywordsLong{$key};
 
-	if (defined $keyword->{"{$ns}keyword"}) {
+	if (defined $keyword->{"keyword"}) {
             $value = [ $value, { xml2data($keyword) } ];
         }
 

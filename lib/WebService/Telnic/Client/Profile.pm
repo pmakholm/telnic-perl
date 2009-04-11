@@ -6,7 +6,7 @@ use warnings;
 our $VERSION ='0.2';
 
 use Carp;
-use XML::Simple;
+use WebService::Telnic::Util qw(XMLin);
 
 sub createProfile {
     my $self   = shift;
@@ -31,10 +31,10 @@ sub createProfile {
     my $res =  $self->soap($method, $body);
     return unless $res->is_success;
 
-    my $xml = XMLin( $res->content, NSExpand => 1, KeyAttr => [], ForceArray => [qw(naptr)], SuppressEmpty =>'' );
-    my $id  = $xml->{'{http://www.w3.org/2003/05/soap-envelope}Body'}
-                  ->{'{http://xmlns.telnic.org/ws/nsp/client/profile/types-1.0}createProfileResponse'}
-                  ->{'{http://xmlns.telnic.org/ws/nsp/client/profile/types-1.0}id'};
+    my $xml = XMLin( $res->content, RemoveNS => 1, ForceArray => [qw(naptr)] );
+    my $id  = $xml->{'Body'}
+                  ->{'createProfileResponse'}
+                  ->{'id'};
 
     return $id;
 }
@@ -87,8 +87,8 @@ sub listProfiles {
     my $res =  $self->soap($method, $body);
     return unless $res->is_success;
 
-    my $xml = XMLin( $res->content, KeyAttr => [], ForceArray => [qw(naptr)], SuppressEmpty =>'' );
-    my $ids = $xml->{'S:Body'}
+    my $xml = XMLin( $res->content, RemoveNS => 1, ForceArray => [qw(naptr)] );
+    my $ids = $xml->{'Body'}
                   ->{'listProfilesResponse'}
                   ->{'profiles'}
                   ->{'ids'};
@@ -107,8 +107,8 @@ sub listProfilesExt {
     my $res =  $self->soap($method, $body);
     return unless $res->is_success;
 
-    my $xml      = XMLin( $res->content, KeyAttr => [], ForceArray => [qw(profile)], SuppressEmpty =>'' );
-    my $profiles = $xml->{'S:Body'}
+    my $xml      = XMLin( $res->content, RemoveNS => 1, ForceArray => [qw(profile)] );
+    my $profiles = $xml->{'Body'}
                        ->{'listProfilesExtResponse'}
                        ->{'profiles'};
 
@@ -129,7 +129,7 @@ sub getProfile {
     my $res =  $self->soap($method, $body);
     return unless $res->is_success;
 
-    my $xml     = XMLin( $res->content, KeyAttr => [], ForceArray => [qw(profile)], SuppressEmpty =>'' );
+    my $xml     = XMLin( $res->content, RemoveNS => 1, ForceArray => [qw(profile)] );
     my $profile = $xml->{'Body'}
                       ->{'getProfileResponse'}
                       ->{'profile'};
@@ -164,7 +164,7 @@ sub getActiveProfile {
     my $res =  $self->soap($method, $body);
     return unless $res->is_success;
 
-    my $xml     = XMLin( $res->content, KeyAttr => [], ForceArray => [qw(profile)], SuppressEmpty =>'' );
+    my $xml     = XMLin( $res->content, RemoveNS => 1, ForceArray => [qw(profile)] );
     my $profile = $xml->{'Body'}
                       ->{'getProfileResponse'}
                       ->{'profile'};

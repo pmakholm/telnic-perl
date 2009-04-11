@@ -5,7 +5,7 @@ use strict;
 our $VERSION = '0.2';
 
 use Scalar::Util qw(blessed);
-use XML::Simple;
+use WebService::Telnic::Util qw(XMLin);
 use WebService::Telnic::Client::RR;
 
 sub listRecords {
@@ -19,13 +19,13 @@ sub listRecords {
     return unless $res->is_success;
 
     my $forcearray = [ map { qq({http://xmlns.telnic.org/ws/nsp/client/record/types-1.0}$_) } qw( naptr txt loc ) ];
-    my $xml = XMLin( $res->content, NSExpand => 1, KeyAttr => [], ForceArray => $forcearray, SuppressEmpty =>'' );
-    my $records = $xml->{'{http://www.w3.org/2003/05/soap-envelope}Body'}
-                      ->{'{http://xmlns.telnic.org/ws/nsp/client/record/types-1.0}listRecordsResponse'};
+    my $xml = XMLin( $res->content, RemoveNS => 1, ForceArray => $forcearray );
+    my $records = $xml->{'Body'}
+                      ->{'listRecordsResponse'};
 
     my @result;
     for my $key ( keys %$records ) {
-	next unless $key =~ m!^\Q{http://xmlns.telnic.org/ws/nsp/client/record/types-1.0}\E(.*)!;
+	next unless $key =~ /^(txt|naptr|srv|mx|loc)$/;
 	my $type = $1;
 
 	for my $record ( @{ $records->{$key} } ) {
@@ -59,10 +59,10 @@ sub storeRecord {
     my $res =  $self->soap($method, $body);
     return unless $res->is_success;
 
-    my $xml = XMLin( $res->content, NSExpand => 1, KeyAttr => [], ForceArray => [qw(naptr)], SuppressEmpty =>'' );
-    my $id  = $xml->{'{http://www.w3.org/2003/05/soap-envelope}Body'}
-                  ->{'{http://xmlns.telnic.org/ws/nsp/client/record/types-1.0}storeRecordResponse'}
-                  ->{'{http://xmlns.telnic.org/ws/nsp/client/record/types-1.0}id'};
+    my $xml = XMLin( $res->content, RemoveNS => 1 );
+    my $id  = $xml->{'Body'}
+                  ->{'storeRecordResponse'}
+                  ->{'id'};
 
     return $id;
 }

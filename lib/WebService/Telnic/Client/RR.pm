@@ -153,15 +153,15 @@ sub from_xmlsimple {
     my $type   = shift; 
     my $xml    = shift;
 
-    my $text   = $xml->{'{http://xmlns.telnic.org/ws/nsp/client/record/types-1.0}text'};
+    my $text   = $xml->{'text'};
     $text      = [ $text ] unless ref $text eq 'ARRAY';
-    delete $xml->{'{http://xmlns.telnic.org/ws/nsp/client/record/types-1.0}text'};
+    delete $xml->{'text'};
 
 
     my $self = $class->new(
         type => uc($type),
         name => $domain,
-        map {s!^\Q{http://xmlns.telnic.org/ws/nsp/client/record/types-1.0}!!; $_} %{ $xml }
+        %{ $xml }
     );
 
     $self->{'char_str_list'} = $text;
