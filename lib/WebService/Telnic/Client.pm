@@ -6,7 +6,14 @@ use strict;
 use XML::Simple;
 use Net::DNS::RR;
 
-use base qw(WebService::Telnic::Base WebService::Telnic::Client::Record WebService::Telnic::Client::Profile WebService::Telnic::Client::SearchData WebService::Telnic::Client::Domain);
+use base qw(
+    WebService::Telnic::Base
+    WebService::Telnic::Client::Domain
+    WebService::Telnic::Client::Record
+    WebService::Telnic::Client::Reader
+    WebService::Telnic::Client::Profile
+    WebService::Telnic::Client::SearchData
+);
 
 our $VERSION = '0.2';
 
