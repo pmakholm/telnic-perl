@@ -15,10 +15,10 @@ sub XMLin {
     my $removeNS = $args{RemoveNS};
     delete $args{RemoveNS};
 
-    $args{NSExpand}     = 1  unless defined $removeNS;
-    $args{NSExpand}     = 1  unless defined $args{NSExpand};
-    $args{KeyAttr}      = [] unless defined $args{KeyAttr};
-    $args{SupressEmpty} = '' unless defined $args{SupressEmpty};
+    $args{NSExpand}      = 1  unless defined $removeNS;
+    $args{NSExpand}      = 1  unless defined $args{NSExpand};
+    $args{KeyAttr}       = [] unless defined $args{KeyAttr};
+    $args{SuppressEmpty} = '' unless defined $args{SuppressEmpty};
 
     my $xml = XML::Simple::XMLin( $data, %args );
 
@@ -49,7 +49,7 @@ sub removeNS {
         my $value = removeNS( $data->{$key} );
 
         $key =~ /^(?:\{([^}]+)\})?(.*)/;
-	next if $1 eq 'http://www.w3.org/2000/xmlns/';
+	next if defined($1) && $1 eq 'http://www.w3.org/2000/xmlns/';
 
 	$new->{$2} = $value;
     }
