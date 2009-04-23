@@ -15,6 +15,7 @@ WriteMakefile(
         'LWP::UserAgent' => 0,
         'List::Util' => 0,
         'Scalar::Util' => 0,
+        'XML::Simple' => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'WebService-Telnic-*' },
